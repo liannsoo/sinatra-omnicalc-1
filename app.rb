@@ -11,7 +11,7 @@ get '/square/new' do
 end
 
 get '/square/results' do
-  @number = params[:number].to_i
+  @number = params[:number].to_f
   @result = @number ** 2
   erb :square_result
 end
@@ -33,8 +33,8 @@ get '/random/new' do
 end
 
 get '/random/results' do
-  @min = params[:minimum].to_i
-  @max = params[:maximum].to_i
+  @min = params[:minimum].to_f
+  @max = params[:maximum].to_f
   @result = rand(@min..@max)
   erb :random_result
 end
@@ -47,12 +47,12 @@ end
 get '/payment/results' do
   @apr = params[:apr].to_f
   @monthly_rate = @apr / 100 / 12
-  @years = params[:years].to_i
+  @years = params[:years].to_f
   @principal = params[:principal].to_f
 
   numerator = @monthly_rate * @principal
   denominator = 1 - (1 + @monthly_rate) ** -(@years * 12)
 
-  @monthly_payment = numerator / denominator
+  @monthly_payment = (numerator / denominator).to_fs(:currency)
   erb :payment_result
 end
