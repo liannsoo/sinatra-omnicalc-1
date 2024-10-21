@@ -1,6 +1,10 @@
 require "sinatra"
 require "sinatra/reloader"
 
+get '/' do
+  redirect '/square/new'
+end
+
 # Square calculation
 get '/square/new' do
   erb :square_form
