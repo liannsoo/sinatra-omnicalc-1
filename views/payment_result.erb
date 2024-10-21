@@ -1,0 +1,10 @@
+<h1>Payment Results</h1>
+<p>APR</p>
+<p><%= format('%.2f', @apr) %>%</p>
+<p>Number of years</p>
+<p><%= @years %></p>
+<p>Principal</p>
+<p>$<%= format('%.2f', @principal) %></p>
+<p>Payment</p>
+<p>$<%= format('%.2f', @monthly_payment) %></p>
+<a href="/payment/new">Calculate another payment</a>

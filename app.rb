@@ -10,9 +10,9 @@ get '/square/new' do
   erb :square_form
 end
 
-post '/square' do
-  number = params[:number].to_i
-  @result = number ** 2
+get '/square/results' do
+  @number = params[:number].to_i
+  @result = @number ** 2
   erb :square_result
 end
 
@@ -21,9 +21,9 @@ get '/square_root/new' do
   erb :square_root_form
 end
 
-post '/square_root' do
-  number = params[:number].to_f
-  @result = Math.sqrt(number)
+get '/square_root' do
+  @number = params[:number].to_f
+  @result = Math.sqrt(@number)
   erb :square_root_result
 end
 
@@ -32,10 +32,10 @@ get '/random/new' do
   erb :random_form
 end
 
-post '/random' do
-  min = params[:min].to_i
-  max = params[:max].to_i
-  @result = rand(min..max)
+get '/random/results' do
+  @min = params[:minimum].to_i
+  @max = params[:maximum].to_i
+  @result = rand(@min..@max)
   erb :random_result
 end
 
@@ -44,13 +44,14 @@ get '/payment/new' do
   erb :payment_form
 end
 
-post '/payment' do
-  apr = params[:apr].to_f / 100 / 12
-  years = params[:years].to_i * 12
-  present_value = params[:present_value].to_f
+get '/payment/results' do
+  @apr = params[:apr].to_f
+  @monthly_rate = @apr / 100 / 12
+  @years = params[:years].to_i
+  @principal = params[:principal].to_f
 
-  numerator = apr * present_value
-  denominator = 1 - (1 + apr) ** -years
+  numerator = @monthly_rate * @principal
+  denominator = 1 - (1 + @monthly_rate) ** -(@years * 12)
 
   @monthly_payment = numerator / denominator
   erb :payment_result
